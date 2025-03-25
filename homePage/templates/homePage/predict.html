@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Flower Prediction</title>
+  <title>10-Year Survival Prediction</title>
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -21,24 +21,32 @@
       padding: 40px;
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-      max-width: 400px;
-      width: 90%;
+      max-width: 600px;
+      width: 95%;
       text-align: center;
+      overflow-y: auto;
+      max-height: 90vh;
     }
 
     h2 {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       color: #333;
       font-weight: 600;
     }
 
+    p.subheading {
+      margin-bottom: 25px;
+      color: #666;
+      font-size: 14px;
+    }
+
     form {
       margin-top: 20px;
+      text-align: left;
     }
 
     form p {
-      text-align: left;
-      margin: 15px 0;
+      margin: 10px 0;
     }
 
     input[type="text"],
@@ -53,6 +61,14 @@
       font-size: 14px;
     }
 
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    label {
+      font-weight: 500;
+    }
+
     button {
       background: linear-gradient(45deg, #FF7E5F, #FEB47B);
       border: none;
@@ -63,30 +79,37 @@
       cursor: pointer;
       margin-top: 20px;
       transition: transform 0.2s;
+      display: block;
+      width: 100%;
     }
 
     button:hover {
       transform: scale(1.05);
     }
 
-    h3 {
+    .result {
       margin-top: 30px;
       font-weight: 600;
       color: #4A90E2;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Flower Prediction</h2>
+    <h2>10-Year CVD Survival Prediction</h2>
+    <p class="subheading">Enter the patient's data below to estimate their probability of surviving the next 10 years.</p>
+    
     <form method="POST">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Predict</button>
+      <button type="submit">Predict Survival Probability</button>
     </form>
 
     {% if result is not None %}
-      <h3>Prediction: {{ result }}</h3>
+      <div class="result">
+        <p>Estimated 10-year survival probability: <strong>{{ result }}%</strong></p>
+      </div>
     {% endif %}
   </div>
 </body>
